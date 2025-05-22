@@ -2,8 +2,6 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-
 public class AddReminderPage extends BasePage {
 
     @AndroidFindBy(id = "com.samsung.android.app.reminder:id/add_viewholder_text_view")
@@ -12,9 +10,6 @@ public class AddReminderPage extends BasePage {
     @AndroidFindBy(id = "com.samsung.android.app.reminder:id/add_viewholder_condition_container")
     private WebElement time;
 
-    @AndroidFindBy(id = "com.samsung.android.app.reminder:id/numberpicker_input")
-    private List<WebElement> timeInput;
-
     @AndroidFindBy(id = "com.samsung.android.app.reminder:id/action_save_reminder")
     private WebElement saveButton;
 
@@ -22,19 +17,26 @@ public class AddReminderPage extends BasePage {
         super(driver);
     }
 
-    public void createReminder(String title, Integer hours, Integer minutes, String ampm) {
+    public void createReminder(String title) {
         titleInput.sendKeys(title);
         time.click();
-
-        timeInput.get(0).clear();
-        timeInput.get(0).sendKeys(hours.toString());
-
-        timeInput.get(1).clear();
-        timeInput.get(1).sendKeys(minutes.toString());
-
-        timeInput.get(2).clear();
-        timeInput.get(2).sendKeys(ampm);
-
         saveButton.click();
+
+        /* *
+        WebElement hourField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.EditText[@resource-id=\"com.samsung.android.app.reminder:id/numberpicker_input\" and @text=\"7, Hour\"]")));
+        hourField.click();
+
+        WebElement minuteField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.EditText[@resource-id=\"com.samsung.android.app.reminder:id/numberpicker_input\" and @text=\"4, Minute\"]")));
+        minuteField.click();
+
+        WebElement ampm = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.Button[@text=\"AM\"]")));
+        ampm.click();
+
+        WebElement dateButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.samsung.android.app.reminder:id/condition_date_text")));
+        dateButton.click();
+
+        WebElement date = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.view.View[@content-desc=\"Tuesday, May 20, 2025\"]")));
+        date.click();
+        * */
     }
 }
